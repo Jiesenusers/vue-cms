@@ -1,14 +1,12 @@
 <template>
   <div>
-
     <!-- 轮播图区域 -->
     <mt-swipe :auto="4000">
       <!-- 在组件中，使用v-for循环的话，一定要使用 key -->
       <mt-swipe-item v-for="item in lunbotuList" :key="item.url">
-        <img :src="item.img" alt="">
+        <img :src="item.img" alt />
       </mt-swipe-item>
     </mt-swipe>
-
 
     <!-- 九宫格 到 6宫格 的改造工程 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -31,7 +29,6 @@
               <img src="../../images/menu6.png" alt="">
               <div class="mui-media-body">联系我们</div></a></li>
   </ul> 
-
   </div>
 </template>
 
@@ -41,7 +38,7 @@ import { Toast } from "mint-ui";
 export default {
   data() {
     return {
-      lunbotuList: [] // 保存轮播图的数组
+      lunbotuList: []
     };
   },
   created() {
@@ -50,16 +47,17 @@ export default {
   methods: {
     getLunbotu() {
       // 获取轮播图数据的方法
-      this.$http.get("http://vue.studyit.io/api/getlunbo").then(result => {
+      this.$http.get("http://www.liulongbin.top:3005/api/getlunbo").then(res => {
         // console.log(result.body);
-        if (result.body.status === 0) {
+        // if (result.body.status === 0) {
           // 成功了
-          this.lunbotuList = result.body.message;
-        } else {
-          // 失败的
-          Toast("加载轮播图失败。。。");
-        }
-      });
+          this.lunbotuList = result.body.message
+          Toast({
+            message: "轮播图数据获取成功"
+          });
+        }).catch(err =>{
+
+        })
     }
   }
 };
@@ -95,7 +93,7 @@ export default {
     height: 60px;
   }
 
-  .mui-media-body{
+  .mui-media-body {
     font-size: 13px;
   }
 }
